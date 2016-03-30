@@ -1,43 +1,58 @@
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:keepScreenOn="true"
     android:id="@+id/fullscreen_content"
+    android:orientation="vertical"
     android:background="#0099cc"
     tools:context="com.mobilebusiness.app.sergiminas.MainActivity">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:gravity="center"
+            android:padding="0dp">
+            <TextView
+                android:id="@+id/Timer"
+                android:layout_column="0"
+                android:text="000"
+                android:textSize="40sp"/>
+            <ImageButton android:id="@+id/Smiley"
+                android:layout_column="1"
+                android:src="@drawable/smiley_button_states"
+                android:background="#00FFFFFF"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+            <TextView
+                android:id="@+id/MineCount"
+                android:layout_column="2"
+                android:text="000"
+                android:textSize="40sp"/>
+        </TableRow>
+    </TableLayout>
 
-    <TableRow>
-        <TextView
-            android:id="@+id/Timer"
-            android:layout_column="0"
-            android:text="000" />
-        <ImageButton android:id="@+id/Smiley"
-            android:layout_column="1"
-            android:background="@drawable/smiley_button_states"
-            android:layout_height="48px"/>
-        <TextView
-            android:id="@+id/MineCount"
-            android:layout_column="2"
-            android:text="000" />
-    </TableRow>
-    <TableRow>
-        <TextView
-            android:layout_column="0"
-            android:layout_height="50px"
-            android:layout_span="3"
-            android:padding="10dip"/>
-    </TableRow>
-    <TableRow>
-        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/MineField"
-            android:layout_width="260px"
-            android:layout_height="260px"
-            android:gravity="bottom"
-            android:stretchColumns="*"
-            android:layout_span="3"
-            android:padding="5dip" >
-        </TableLayout>
-    </TableRow>
-</TableLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="10dip"/>
+    <!--<TableLayout
+        android:id="@+id/MineField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*"
+        android:gravity="bottom"
+        android:padding="5dip" >
+    </TableLayout>-->
+
+    <GridLayout
+        android:id="@+id/MineField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:verticalSpacing="0dp"
+        android:horizontalSpacing="0dp"
+        android:padding="1dip"
+        android:background="#e5e5e5">
+    </GridLayout>
+</LinearLayout>
