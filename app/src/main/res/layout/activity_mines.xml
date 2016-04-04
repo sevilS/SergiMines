@@ -6,7 +6,7 @@
     android:id="@+id/fullscreen_content"
     android:orientation="vertical"
     android:background="#0099cc"
-    tools:context="com.mobilebusiness.app.sergiminas.MainActivity">
+    tools:context="com.mobilebusiness.app.sergiminas.MinesActivity">
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -36,14 +36,6 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:padding="10dip"/>
-    <!--<TableLayout
-        android:id="@+id/MineField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stretchColumns="*"
-        android:gravity="bottom"
-        android:padding="5dip" >
-    </TableLayout>-->
 
     <GridLayout
         android:id="@+id/MineField"

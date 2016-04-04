@@ -1,10 +1,12 @@
-package com.mobilebusiness.app.sergiminas;
+package com.mobilebusiness.app.sergiminas.DataStructure;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.Button;
+
+import com.mobilebusiness.app.sergiminas.R;
 
 public class Block extends Button
 {

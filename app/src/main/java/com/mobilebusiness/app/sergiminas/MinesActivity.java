@@ -13,10 +13,10 @@ import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.mobilebusiness.app.sergiminas.DataStructure.Block;
 
 import java.util.Random;
 
@@ -24,7 +24,7 @@ import java.util.Random;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class MainActivity extends AppCompatActivity {
+public class MinesActivity extends AppCompatActivity {
     /**
      * Some older devices needs a small delay between UI widget updates
      * and a change of the status and navigation bar.
@@ -65,8 +65,6 @@ public class MainActivity extends AppCompatActivity {
     private GridLayout mineField;
     /** Blocks for mine field **/
     private Block blocks[][];
-    private int blockDimension = 24; // width of each block
-    private int blockPadding = 2; // padding between blocks
 
     private int numberOfRowsInMineField = 9;
     private int numberOfColumnsInMineField = 9;
@@ -86,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_mines);
         mContentView = findViewById(R.id.fullscreen_content);
 
         txtMineCount = (TextView) findViewById(R.id.MineCount);
@@ -129,20 +127,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void showMineField()
     {
-        for (int row = 1; row < numberOfRowsInMineField + 1; row++)
-        {
+        for (int row = 1; row < numberOfRowsInMineField + 1; row++) {
             int width_grid = mineField.getWidth() - 5;
             int width_grid_side = width_grid / numberOfColumnsInMineField;
-            //int width = mineField.getWidth();
-            //int width_side = width / numberOfColumnsInMineField;
-            //TableRow tableRow = new TableRow(this);
-            //tableRow.setLayoutParams(new TableRow.LayoutParams(width, width_side));
-            //tableRow.setLayoutParams(new TableRow.LayoutParams((blockDimension + 2 * blockPadding) *
-            //        numberOfColumnsInMineField, blockDimension + 2 * blockPadding));
 
-            for (int column = 1; column < numberOfColumnsInMineField + 1; column++)
-            {
-                GridLayout.LayoutParams param = new GridLayout.LayoutParams(new ViewGroup.MarginLayoutParams(0,0));
+            for (int column = 1; column < numberOfColumnsInMineField + 1; column++) {
+                GridLayout.LayoutParams param = new GridLayout.LayoutParams(new ViewGroup.MarginLayoutParams(0, 0));
                 param.height = width_grid_side;
                 param.width = width_grid_side;
                 param.columnSpec = GridLayout.spec(column);
@@ -150,19 +140,8 @@ public class MainActivity extends AppCompatActivity {
                 blocks[row][column].setLayoutParams(param);
                 mineField.addView(blocks[row][column], param);
 
-
-
-      //          blocks[row][column].setLayoutParams(new TableRow.LayoutParams(
-      //                  width_side,
-      //                  width_side));
-
-     //           tableRow.addView(blocks[row][column]);
             }
-    //        mineField.addView(tableRow,new TableLayout.LayoutParams(
-   //                 width, width_side));
-
         }
-
 
     }
 
