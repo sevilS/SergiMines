@@ -230,9 +230,11 @@ public class MapView extends View {
 
     public void setWidth(float width) {
         mWidth = width;
+        setMeasuredDimension((int)mWidth , (int)mHeigth);
     }
 
     public void setHeigth(float heigth) {
         mHeigth = heigth;
+        setMeasuredDimension((int)mWidth , (int)mHeigth);
     }
 }
