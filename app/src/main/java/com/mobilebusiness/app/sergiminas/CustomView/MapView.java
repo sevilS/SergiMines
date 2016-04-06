@@ -10,11 +10,15 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.mobilebusiness.app.sergiminas.Helper.DeviceDimensionsHelper;
+import com.mobilebusiness.app.sergiminas.Helper.LevelIcon;
 import com.mobilebusiness.app.sergiminas.R;
 
 /**
@@ -23,6 +27,7 @@ import com.mobilebusiness.app.sergiminas.R;
 public class MapView extends View {
     private float mWidth;
     private float mHeigth;
+    private boolean init= true;
     public static final int SCREEN_NUMBER = 5;
     /**
      * 10 steps
@@ -60,6 +65,7 @@ public class MapView extends View {
     private float[] pos;
     private float[] tan;
 
+    private LevelIcon mLevel;
     private Matrix matrix;
 
     private Path touchPath;
@@ -115,8 +121,12 @@ public class MapView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        Bitmap levelIcon = BitmapFactory.decodeResource(getResources(), R.drawable.level, options);
 
-        paint.setAntiAlias(true);
+        canvas.drawBitmap(levelIcon, mWidth * (float) 0.75, mHeigth * (float) 0.78 + mHeigth * 4, paint);
+        mLevel = new LevelIcon(mWidth * (float) 0.75, levelIcon.getWidth(), mHeigth * (float) 0.78 + mHeigth * 4, levelIcon.getHeight());
 //        paint.setColor(Color.RED);
 //        paint.setStrokeWidth(3);
 //        mPath.moveTo(50, 50);
@@ -124,80 +134,83 @@ public class MapView extends View {
 //        canvas.drawPath(mPath, paint);
 //
 //        mPath.reset();
-        paint.setColor(Color.CYAN);
-        paint.setStrokeWidth(20);
-        float radius = 50.0f;
+            /*paint.setAntiAlias(true);
+            paint.setColor(Color.CYAN);
+            paint.setStrokeWidth(20);
+            float radius = 50.0f;
 
-        CornerPathEffect cornerPathEffect =
-                new CornerPathEffect(radius);
+            CornerPathEffect cornerPathEffect =
+                    new CornerPathEffect(radius);
 
-        paint.setPathEffect(cornerPathEffect);
+            paint.setPathEffect(cornerPathEffect);
 
-        mPath.moveTo(mWidth * 0, mHeigth + mHeigth * 4);
-        mPath.lineTo(mWidth * (float) 0.20, mHeigth * (float) 0.80 + mHeigth * 4);
-        mPath.lineTo(mWidth * (float) 0.50, mHeigth * (float) 0.85 + mHeigth * 4);
-        mPath.lineTo(mWidth * (float) 0.75, mHeigth * (float) 0.78 + mHeigth * 4);
-        mPath.lineTo(mWidth * (float) 0.90, mHeigth * (float) 0.70 + mHeigth * 4);
-        mPath.lineTo(mWidth * (float) 0.78, mHeigth * (float) 0.64 + mHeigth * 4);
-        mPath.lineTo(mWidth * (float) 0.54, mHeigth * (float) 0.60 + mHeigth * 4);
-        mPath.lineTo(mWidth * (float) 0.20, mHeigth * (float) 0.68 + mHeigth * 4);
-        mPath.lineTo(mWidth * (float) 0.10, mHeigth * (float) 0.40 + mHeigth * 4);
-        mPath.lineTo(mWidth * (float) 0.30, mHeigth * (float) 0.35 + mHeigth * 4);
-        mPath.lineTo(mWidth * (float) 0.60, mHeigth * (float) 0.20 + mHeigth * 4);
-        mPath.lineTo(mWidth * (float) 0.90, mHeigth * 0 + mHeigth * 4);
-        mPath.lineTo(mWidth * (float) 0.20, mHeigth * (float) 0.80 + mHeigth * 3);
-        mPath.lineTo(mWidth * (float) 0.50, mHeigth * (float) 0.85 + mHeigth * 3);
-        mPath.lineTo(mWidth * (float) 0.75, mHeigth * (float) 0.78 + mHeigth * 3);
-        mPath.lineTo(mWidth * (float) 0.90, mHeigth * (float) 0.70 + mHeigth * 3);
-        mPath.lineTo(mWidth * (float) 0.78, mHeigth * (float) 0.64 + mHeigth * 3);
-        mPath.lineTo(mWidth * (float) 0.54, mHeigth * (float) 0.60 + mHeigth * 3);
-        mPath.lineTo(mWidth * (float) 0.20, mHeigth * (float) 0.68 + mHeigth * 3);
-        mPath.lineTo(mWidth * (float) 0.10, mHeigth * (float) 0.40 + mHeigth * 3);
-        mPath.lineTo(mWidth * (float) 0.30, mHeigth * (float) 0.35 + mHeigth * 3);
-        mPath.lineTo(mWidth * (float) 0.60, mHeigth * (float) 0.20 + mHeigth * 3);
-        mPath.lineTo(mWidth * (float) 0.90, mHeigth * 0 + mHeigth * 3);
-        canvas.drawPath(mPath, paint);
-        mPath.reset();
-        mPath.moveTo(mWidth * (float) 0.90, mHeigth * 0 + mHeigth * 3);
-        mPath.lineTo(mWidth * (float) 0.20, mHeigth * (float) 0.80 + mHeigth * 2);
-        mPath.lineTo(mWidth * (float) 0.50, mHeigth * (float) 0.85 + mHeigth * 2);
-        mPath.lineTo(mWidth * (float) 0.75, mHeigth * (float) 0.78 + mHeigth * 2);
-        mPath.lineTo(mWidth * (float) 0.90, mHeigth * (float) 0.70 + mHeigth * 2);
-        mPath.lineTo(mWidth * (float) 0.78, mHeigth * (float) 0.64 + mHeigth * 2);
-        mPath.lineTo(mWidth * (float) 0.54, mHeigth * (float) 0.60 + mHeigth * 2);
-        mPath.lineTo(mWidth * (float) 0.20, mHeigth * (float) 0.68 + mHeigth * 2);
-        mPath.lineTo(mWidth * (float) 0.10, mHeigth * (float) 0.40 + mHeigth * 2);
-        mPath.lineTo(mWidth * (float) 0.30, mHeigth * (float) 0.35 + mHeigth * 2);
-        mPath.lineTo(mWidth * (float) 0.60, mHeigth * (float) 0.20 + mHeigth * 2);
-        mPath.lineTo(mWidth * (float) 0.90, mHeigth * 0 + mHeigth * 2);
-        canvas.drawPath(mPath, paint);
-        mPath.reset();
-        mPath.moveTo(mWidth * (float) 0.90, mHeigth * 0 + mHeigth * 2);
-        mPath.lineTo(mWidth * (float) 0.20, mHeigth * (float) 0.80 + mHeigth);
-        mPath.lineTo(mWidth * (float) 0.50, mHeigth * (float) 0.85 + mHeigth);
-        mPath.lineTo(mWidth * (float) 0.75, mHeigth * (float) 0.78 + mHeigth);
-        mPath.lineTo(mWidth * (float) 0.90, mHeigth * (float) 0.70 + mHeigth);
-        mPath.lineTo(mWidth * (float) 0.78, mHeigth * (float) 0.64 + mHeigth);
-        mPath.lineTo(mWidth * (float) 0.54, mHeigth * (float) 0.60 + mHeigth);
-        mPath.lineTo(mWidth * (float) 0.20, mHeigth * (float) 0.68 + mHeigth);
-        mPath.lineTo(mWidth * (float) 0.10, mHeigth * (float) 0.40 + mHeigth);
-        mPath.lineTo(mWidth * (float) 0.30, mHeigth * (float) 0.35 + mHeigth);
-        mPath.lineTo(mWidth * (float) 0.60, mHeigth * (float) 0.20 + mHeigth);
-        mPath.lineTo(mWidth * (float) 0.90, mHeigth * 0 + mHeigth);
-        mPath.lineTo(mWidth * (float) 0.20, mHeigth * (float) 0.80);
-        mPath.lineTo(mWidth * (float) 0.50, mHeigth * (float) 0.85);
-        mPath.lineTo(mWidth * (float) 0.75, mHeigth * (float) 0.78);
-        mPath.lineTo(mWidth * (float) 0.90, mHeigth * (float) 0.70);
-        mPath.lineTo(mWidth * (float) 0.78, mHeigth * (float) 0.64);
-        mPath.lineTo(mWidth * (float) 0.54, mHeigth * (float) 0.60);
-        mPath.lineTo(mWidth * (float) 0.20, mHeigth * (float) 0.68);
-        mPath.lineTo(mWidth * (float) 0.10, mHeigth * (float) 0.40);
-        mPath.lineTo(mWidth * (float) 0.30, mHeigth * (float) 0.35);
-        mPath.lineTo(mWidth * (float) 0.60, mHeigth * (float) 0.20);
-        mPath.lineTo(mWidth * (float) 0.90, mHeigth * 0);
+            mPath.moveTo(mWidth * 0, mHeigth + mHeigth * 4);
+            mPath.lineTo(mWidth * (float) 0.20, mHeigth * (float) 0.80 + mHeigth * 4);
+            mPath.lineTo(mWidth * (float) 0.50, mHeigth * (float) 0.85 + mHeigth * 4);
+            mPath.lineTo(mWidth * (float) 0.75, mHeigth * (float) 0.78 + mHeigth * 4);
+            mPath.lineTo(mWidth * (float) 0.90, mHeigth * (float) 0.70 + mHeigth * 4);
+            mPath.lineTo(mWidth * (float) 0.78, mHeigth * (float) 0.64 + mHeigth * 4);
+            mPath.lineTo(mWidth * (float) 0.54, mHeigth * (float) 0.60 + mHeigth * 4);
+            mPath.lineTo(mWidth * (float) 0.20, mHeigth * (float) 0.68 + mHeigth * 4);
+            mPath.lineTo(mWidth * (float) 0.10, mHeigth * (float) 0.40 + mHeigth * 4);
+            mPath.lineTo(mWidth * (float) 0.30, mHeigth * (float) 0.35 + mHeigth * 4);
+            mPath.lineTo(mWidth * (float) 0.60, mHeigth * (float) 0.20 + mHeigth * 4);
+            mPath.lineTo(mWidth * (float) 0.90, mHeigth * 0 + mHeigth * 4);
+            mPath.lineTo(mWidth * (float) 0.20, mHeigth * (float) 0.80 + mHeigth * 3);
+            mPath.lineTo(mWidth * (float) 0.50, mHeigth * (float) 0.85 + mHeigth * 3);
+            mPath.lineTo(mWidth * (float) 0.75, mHeigth * (float) 0.78 + mHeigth * 3);
+            mPath.lineTo(mWidth * (float) 0.90, mHeigth * (float) 0.70 + mHeigth * 3);
+            mPath.lineTo(mWidth * (float) 0.78, mHeigth * (float) 0.64 + mHeigth * 3);
+            mPath.lineTo(mWidth * (float) 0.54, mHeigth * (float) 0.60 + mHeigth * 3);
+            mPath.lineTo(mWidth * (float) 0.20, mHeigth * (float) 0.68 + mHeigth * 3);
+            mPath.lineTo(mWidth * (float) 0.10, mHeigth * (float) 0.40 + mHeigth * 3);
+            mPath.lineTo(mWidth * (float) 0.30, mHeigth * (float) 0.35 + mHeigth * 3);
+            mPath.lineTo(mWidth * (float) 0.60, mHeigth * (float) 0.20 + mHeigth * 3);
+            mPath.lineTo(mWidth * (float) 0.90, mHeigth * 0 + mHeigth * 3);
+            canvas.drawPath(mPath, paint);
+            mPath.reset();
+            mPath.moveTo(mWidth * (float) 0.90, mHeigth * 0 + mHeigth * 3);
+            mPath.lineTo(mWidth * (float) 0.20, mHeigth * (float) 0.80 + mHeigth * 2);
+            mPath.lineTo(mWidth * (float) 0.50, mHeigth * (float) 0.85 + mHeigth * 2);
+            mPath.lineTo(mWidth * (float) 0.75, mHeigth * (float) 0.78 + mHeigth * 2);
+            mPath.lineTo(mWidth * (float) 0.90, mHeigth * (float) 0.70 + mHeigth * 2);
+            mPath.lineTo(mWidth * (float) 0.78, mHeigth * (float) 0.64 + mHeigth * 2);
+            mPath.lineTo(mWidth * (float) 0.54, mHeigth * (float) 0.60 + mHeigth * 2);
+            mPath.lineTo(mWidth * (float) 0.20, mHeigth * (float) 0.68 + mHeigth * 2);
+            mPath.lineTo(mWidth * (float) 0.10, mHeigth * (float) 0.40 + mHeigth * 2);
+            mPath.lineTo(mWidth * (float) 0.30, mHeigth * (float) 0.35 + mHeigth * 2);
+            mPath.lineTo(mWidth * (float) 0.60, mHeigth * (float) 0.20 + mHeigth * 2);
+            mPath.lineTo(mWidth * (float) 0.90, mHeigth * 0 + mHeigth * 2);
+            canvas.drawPath(mPath, paint);
+            mPath.reset();
+            mPath.moveTo(mWidth * (float) 0.90, mHeigth * 0 + mHeigth * 2);
+            mPath.lineTo(mWidth * (float) 0.20, mHeigth * (float) 0.80 + mHeigth);
+            mPath.lineTo(mWidth * (float) 0.50, mHeigth * (float) 0.85 + mHeigth);
+            mPath.lineTo(mWidth * (float) 0.75, mHeigth * (float) 0.78 + mHeigth);
+            mPath.lineTo(mWidth * (float) 0.90, mHeigth * (float) 0.70 + mHeigth);
+            mPath.lineTo(mWidth * (float) 0.78, mHeigth * (float) 0.64 + mHeigth);
+            mPath.lineTo(mWidth * (float) 0.54, mHeigth * (float) 0.60 + mHeigth);
+            mPath.lineTo(mWidth * (float) 0.20, mHeigth * (float) 0.68 + mHeigth);
+            mPath.lineTo(mWidth * (float) 0.10, mHeigth * (float) 0.40 + mHeigth);
+            mPath.lineTo(mWidth * (float) 0.30, mHeigth * (float) 0.35 + mHeigth);
+            mPath.lineTo(mWidth * (float) 0.60, mHeigth * (float) 0.20 + mHeigth);
+            mPath.lineTo(mWidth * (float) 0.90, mHeigth * 0 + mHeigth);
+            mPath.lineTo(mWidth * (float) 0.20, mHeigth * (float) 0.80);
+            mPath.lineTo(mWidth * (float) 0.50, mHeigth * (float) 0.85);
+            mPath.lineTo(mWidth * (float) 0.75, mHeigth * (float) 0.78);
+            mPath.lineTo(mWidth * (float) 0.90, mHeigth * (float) 0.70);
+            mPath.lineTo(mWidth * (float) 0.78, mHeigth * (float) 0.64);
+            mPath.lineTo(mWidth * (float) 0.54, mHeigth * (float) 0.60);
+            mPath.lineTo(mWidth * (float) 0.20, mHeigth * (float) 0.68);
+            mPath.lineTo(mWidth * (float) 0.10, mHeigth * (float) 0.40);
+            mPath.lineTo(mWidth * (float) 0.30, mHeigth * (float) 0.35);
+            mPath.lineTo(mWidth * (float) 0.60, mHeigth * (float) 0.20);
+            mPath.lineTo(mWidth * (float) 0.90, mHeigth * 0);
 
 
-        canvas.drawPath(mPath, paint);
+            canvas.drawPath(mPath, paint);
+            init = false;*/
+
 //        mPath.reset();
 //        paint.setColor(Color.RED);
 //        paint.setStrokeWidth(20);
@@ -254,10 +267,11 @@ public class MapView extends View {
 
         int action = event.getAction();
 
-        switch(action){
+        switch (action) {
             case MotionEvent.ACTION_DOWN:
                 touchPath.reset();
                 touchPath.moveTo(event.getX(), event.getY());
+                Toast.makeText(getContext(), "Clicked " + mLevel.isClicked(event.getX(), event.getY()), Toast.LENGTH_LONG).show();
                 break;
             case MotionEvent.ACTION_MOVE:
                 touchPath.lineTo(event.getX(), event.getY());

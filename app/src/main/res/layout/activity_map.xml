@@ -10,8 +10,8 @@
     tools:context="com.mobilebusiness.app.sergiminas.MapActivity" >
     <com.mobilebusiness.app.sergiminas.CustomView.MapView
         android:id="@+id/mapView"
+        android:background="@drawable/background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray" />
+        android:layout_height="wrap_content"/>
 
 </ScrollView>
